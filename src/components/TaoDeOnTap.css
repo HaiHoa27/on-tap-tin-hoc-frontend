@@ -1,0 +1,168 @@
+.taode-container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.title {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.btn-back {
+  margin-bottom: 10px;
+}
+
+.chude-lon {
+  background: #f3f6fa;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.chude-con {
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.chude-con input[type="number"] {
+  width: 80px;
+}
+
+.btn-taode, .btn-nopbai {
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.cau-hoi {
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.options label,
+.tf-row {
+  display: block;
+  margin-left: 20px;
+  margin-top: 6px;
+}
+
+.dung {
+  color: green;
+  font-weight: bold;
+}
+.sai {
+  color: red;
+}
+.cau-hoi {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 12px 0;
+}
+
+.loi-dan {
+  margin-bottom: 8px;
+}
+
+.noi-dung-cau {
+  margin-top: 4px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.option, .sub-question label {
+  display: block;
+  margin: 4px 0;
+}
+
+.right {
+  color: green;
+  font-weight: bold;
+}
+
+.wrong {
+  color: red;
+  font-weight: bold;
+}
+
+.submit-btn {
+  margin-top: 16px;
+  padding: 8px 16px;
+  font-size: 16px;
+}
+
+.phuong-an {
+  display: block;
+  margin: 6px 0;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.phuong-an.dung {
+  background: #d4f7d4;
+  color: green;
+}
+
+.phuong-an.sai {
+  background: #ffd6d6;
+  color: red;
+}
+
+.cau-hoi {
+  margin: 20px 0;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+/* Mỗi mệnh đề Đ/S 1 dòng */
+.dong-dung-sai {
+  display: grid;
+  grid-template-columns: 1fr 120px;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px dashed #ddd;
+  align-items: start;
+}
+
+.cot-ds {
+  display: flex;
+  justify-content: space-between;
+  white-space: nowrap;
+}
+
+/* Nội dung mệnh đề */
+.noi-dung-ds {
+  flex: 1;
+}
+
+/* Khối chọn Đ / S */
+.lua-chon-ds {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Mỗi lựa chọn */
+.chon-ds {
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Đúng / Sai sau khi nộp */
+.chon-ds.dung {
+  background-color: #d4f7d4;
+  color: green;
+  font-weight: bold;
+}
+
+.chon-ds.sai {
+  background-color: #ffd6d6;
+  color: red;
+  font-weight: bold;
+}

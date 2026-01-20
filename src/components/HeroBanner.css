@@ -1,0 +1,34 @@
+.hello-banner {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 800px;
+  margin: 20px auto;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hello-banner h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #b22222; /* đỏ đậm */
+}
+
+.hello-banner ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.hello-banner li {
+  margin: 8px 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.hello-banner p {
+  font-size: 1rem;
+  color: #444;
+  margin: 5px 0;
+}
