@@ -58,30 +58,34 @@ function ChatBot() {
   const generateQuestions = async () => {
   setQuestions([]);
   setGenLoading(true);
+
   try {
     const res = await fetch("https://on-tap-tin-hoc-ai.onrender.com/generate-questions", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        type: questionType,   // mcq | tf
+        type: questionType,
         topic: input || "Tin học THPT",
         count: count,
       }),
     });
 
+    console.log("STATUS:", res.status);
+
+    const text = await res.text();
+    console.log("RAW:", text);
+
     if (!res.ok) throw new Error("HTTP " + res.status);
 
-    const data = await res.json();
+    const data = JSON.parse(text);
     setQuestions(data);
   } catch (err) {
-    console.error(err);
+    console.error("GEN ERROR:", err);
     alert("Lỗi khi tạo câu hỏi!");
   } finally {
     setGenLoading(false);
   }
 };
-
-
 
   return (
     <div className="chatbot-wrapper">

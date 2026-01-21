@@ -304,12 +304,8 @@ function App() {
                 <h2 style={{ textAlign: "center" }}>
                   🔒 Bạn cần đăng nhập để truy cập
                 </h2>
-              ) : isGV ? (
-                <TaoDeOnTap data={data} />
               ) : (
-                <h2 style={{ textAlign: "center" }}>
-                  ❌ Chỉ giáo viên mới được tạo đề
-                </h2>
+                <TaoDeOnTap data={data} />
               )
             }
           />
