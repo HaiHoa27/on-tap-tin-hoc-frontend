@@ -18,11 +18,12 @@ function ChatBot() {
 
   // Gửi tin nhắn chat
   const sendMessage = async () => {
-    if (!input.trim() || chatLoading) return;
+    if (!input.trim() || chatLoading || genLoading) return;
 
     const userMessage = { id: Date.now(), role: "user", content: input.trim() };
     setMessages(prev => [...prev, userMessage]);
     setInput("");
+    setQuestions([]);
     setChatLoading(true);
 
     try {
@@ -56,6 +57,11 @@ function ChatBot() {
 
   // Tạo câu hỏi MCQ + True/False
   const generateQuestions = async () => {
+  if (count < 1) {
+    alert("Vui lòng nhập số câu hỏi lớn hơn 0");
+    return;
+  }
+
   setQuestions([]);
   setGenLoading(true);
 
@@ -70,15 +76,63 @@ function ChatBot() {
       }),
     });
 
-    console.log("STATUS:", res.status);
+    if (!res.ok) throw new Error("HTTP " + res.status);
 
     const text = await res.text();
     console.log("RAW:", text);
 
-    if (!res.ok) throw new Error("HTTP " + res.status);
-
     const data = JSON.parse(text);
-    setQuestions(data);
+
+    if (!data || data.length === 0) {
+      alert("AI chưa tạo được câu hỏi, thử lại!");
+      setGenLoading(false);
+      return;
+    }
+
+    console.log("AI RETURN:", data);
+
+    const questionArray = Array.isArray(data) ? data : [data];
+
+    const normalized = questionArray.map((q) => {
+      // ===== MCQ =====
+      if (questionType === "mcq") {
+        return {
+          ...q,
+          type: "mcq",
+          question: q.question?.trim() || "",
+          options: q.options || [],
+          answer: q.answer || "",
+        };
+      }
+
+      // ===== TRUE / FALSE =====
+      if (questionType === "tf") {
+        let qText = (q.question || "").trim().replace(/^Câu\s*\d+:\s*/i, "");
+        let ans = (q.answer || "").trim();
+
+        // bỏ dấu ?
+        if (qText.endsWith("?")) {
+          qText = qText.slice(0, -1);
+        }
+
+        if (!qText.endsWith(".")) qText += ".";
+
+        if (!["Đúng", "Sai"].includes(ans)) {
+          ans = Math.random() > 0.5 ? "Đúng" : "Sai";
+        }
+
+        return {
+          ...q,
+          type: "tf",
+          question: qText,
+          answer: ans,
+        };
+      }
+
+      return q;
+    });
+
+    setQuestions(normalized.slice(0, count));
   } catch (err) {
     console.error("GEN ERROR:", err);
     alert("Lỗi khi tạo câu hỏi!");
@@ -111,7 +165,9 @@ function ChatBot() {
             onKeyDown={handleKeyDown}
             placeholder="Hỏi trợ giảng Tin học..."
           />
-          <button onClick={sendMessage} disabled={chatLoading}>{chatLoading ? "Đang gửi..." : "Gửi"}</button>
+          <button onClick={sendMessage} disabled={chatLoading || genLoading}>
+            {chatLoading ? "Đang gửi..." : "Gửi"}
+          </button>
         </div>
 
         <div style={{ marginTop: 10, display: "flex", gap: 10, justifyContent: "center" }}>
@@ -125,7 +181,7 @@ function ChatBot() {
             min="1"
             max="20"
             value={count}
-            onChange={(e) => setCount(Number(e.target.value))}
+            onChange={(e) => setCount(parseInt(e.target.value || 1))}
             style={{ width: 60 }}
           />
         </div>
@@ -138,23 +194,26 @@ function ChatBot() {
         </div>
 
         {/* Hiển thị câu hỏi AI tạo */}
-        {questions.map((q, idx) => (
-          <div key={idx} className="question-box">
-            <p><b>Câu {idx + 1}:</b> {q.question}</p>
+        <div className="questions-wrapper">
+          {questions.map((q, idx) => (
+            <div key={idx} className="question-box">
+              <p><b>Câu {idx + 1}:</b> {q.question}</p>
 
-            {q.type === "mcq" && q.options && (
-              <ul>
-                {q.options.map((opt, i) => (
-                  <li key={i}>{opt}</li>
-                ))}
-              </ul>
-            )}
-
-            {q.type === "tf" && (
-              <p>Đáp án: {q.answer}</p>
-            )}
-          </div>
-        ))}
+              {q.type === "mcq" && (
+                <>
+                  {q.options && q.options.length > 0 ? (
+                    <ul>{q.options.map((opt, i) => <li key={i}>{opt}</li>)}</ul>
+                  ) : (
+                    <p>(Chưa có lựa chọn, vui lòng kiểm tra backend)</p>
+                  )}
+                </>
+              )}
+              {q.type === "tf" && questionType === "tf" && (
+                <p>Đáp án: {q.answer}</p>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

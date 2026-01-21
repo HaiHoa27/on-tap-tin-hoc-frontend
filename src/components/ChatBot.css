@@ -108,3 +108,17 @@
     padding: 5px;
   }
 }
+.questions-wrapper {
+  max-height: 30vh; /* chiều cao tối đa hiển thị câu hỏi */
+  overflow-y: auto; /* nếu nhiều câu hỏi → xuất hiện scroll */
+  border-top: 1px solid #ccc;
+  padding-top: 5px;
+  margin-top: 10px;
+}
+
+.question-box {
+  margin-bottom: 10px;
+  background: #f9f9f9;
+  padding: 8px;
+  border-radius: 5px;
+}
