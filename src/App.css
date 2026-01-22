@@ -155,71 +155,23 @@ input[type="radio"] {
 .container.dark .theory-box h3 {
   color: #ffffff;
 }
+
+/* Ảnh Header */
 .site-header {
   width: 100%;
-  height: 100px;
-  position: relative;
-  background-image: url("../public/header-bg.jpg");
-  background-size: cover;
-  background-position: top;
-  border-bottom: 2px solid #3399ff;
-  margin: 0;
-  padding: 0 20px;
-  color: white;
-  border-radius: 0;
-  
-  display: flex;                /* Dùng flexbox */
-  align-items: center;          /* Căn giữa dọc */
-  justify-content: center;      /* Căn giữa ngang toàn khối */
-  text-align: center;
-  overflow: hidden;
-}
-
-/* Lớp phủ mờ */
-.site-header::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 0;
-}
-
-/* Logo */
-.logo-fixed {
+  height: 170px;
   display: flex;
-  align-items: center;     /* ép logo căn giữa theo dọc */
-  height: 80%;            /* bằng chiều cao header */
-  margin-right: 20px;      /* tạo khoảng cách với chữ */
-  z-index: 1;
+  justify-content: center; /* căn ngang */
+  align-items: center;     /* căn dọc */
+  overflow: hidden;
+  background-color: #f0f0f0; /* nền fallback nếu ảnh không chiếm hết */
 }
-.logo-fixed img {
-  height: 80%;             /* vừa với header (thay đổi nếu muốn to hơn/nhỏ hơn) */
-  max-height: 80px;        /* giới hạn tối đa */
-  object-fit: contain;
+
+.header-bg {
+  width: 100%;           /* tràn full chiều ngang */
+  height: 100%;          /* cao bằng Header */
+  object-fit: fill;      /* kéo dãn ảnh vừa khít Header, không giữ tỉ lệ */
   display: block;
-}
-
-/* Chữ */
-.site-header h1,
-.site-header .tagline {
-  position: relative;
-  z-index: 1;
-  color: white;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
-}
-
-.site-header h1 {
-  font-size: 32px;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.site-header .tagline {
-  margin-top: 8px;
-  font-size: 16px;
-  color: yellow;
-  font-style: italic;
 }
 
 .home-btn {

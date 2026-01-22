@@ -177,12 +177,9 @@ function App() {
     <Router>
       {/* Header */}
       <header className="site-header">
-        <img src="/logo.png" alt="Logo" className="logo-fixed" />
-        <div className="title-box">
-          <h1>ÔN THI TỐT NGHIỆP THPT - MÔN TIN HỌC</h1>
-          <p className="tagline">Luyện tập lý thuyết & trắc nghiệm theo từng chủ đề</p>
-        </div>
+        <img src="/header-bg.jpg" alt="TinTNSmart Header" className="header-bg" />
       </header>
+
 
       {/* Navbar */}
       <Navbar
@@ -338,9 +335,9 @@ function App() {
       <footer className="site-footer">
         <p>
           <strong>
-            <em>✅ Người thực hiện:</em>
+            <em>✅ Người thực hiện: Phùng Thị Thanh Huyền</em>          
+            <em>   ✅ GV hướng dẫn: Trần Hoàng Hải Hòa – Trường THPT số 1 Lê Lợi</em>
           </strong>{" "}
-          <em>Trần Hoàng Hải Hòa – Trường THPT số 1 Lê Lợi</em>
         </p>
       </footer>
     </Router>
