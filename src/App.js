@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useParams, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useParams, useNavigate, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import { auth, db } from "./firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -72,6 +72,20 @@ function Navbar({ user, userData, isGV, handleLogout, toggleTheme, theme, setSho
       </div>
     </nav>
   );
+}
+
+function ChatBotController() {
+  const location = useLocation();
+
+  // ❌ Ẩn khi vào đề thi
+  const hideOnPaths =
+    location.pathname.startsWith("/tao-de") ||
+    location.pathname.startsWith("/topic/DE_THI") ||
+    location.pathname.startsWith("/topic/KT_");
+
+  if (hideOnPaths) return null;
+
+  return <ChatBot />;
 }
 
 function TopicLoader({ data }) {
@@ -330,7 +344,7 @@ function App() {
       </div>
 
       <BackToTopButton theme={theme} />
-      <ChatBot />   {/* 🤖 Trợ giảng Tin học */}
+      <ChatBotController />   {/* 🤖 Trợ giảng Tin học */}
 
       <footer className="site-footer">
         <p>
