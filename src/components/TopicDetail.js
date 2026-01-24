@@ -23,8 +23,8 @@ function TopicDetail({topic}) {
   const [submitted, setSubmitted] = useState(false);
   const [answerResults, setAnswerResults] = useState({});
   const [startTime] = useState(Date.now());
-  const [aiText, setAiText] = useState({});
-  const [loadingAI, setLoadingAI] = useState(false);
+  const [aiLoadingMap, setAiLoadingMap] = useState({});
+  const [aiExplainMap, setAiExplainMap] = useState({});
   const isDeThiCoDinh = topic?.id === "DE_THI";
   const isGVDe = topic?.id?.startsWith("KT_");
   const isDeThi = isDeThiCoDinh || isGVDe;
@@ -350,7 +350,8 @@ useEffect(() => {
   };
 
   const goiAI = async (keyId, cauHoi, options, correctAnswer, userAnswer) => {
-  setLoadingAI(true);
+  if (aiExplainMap[keyId]) return;
+  setAiLoadingMap(prev => ({ ...prev, [keyId]: true }));
 
   try {
     const res = await fetch("https://on-tap-tin-hoc-ai.onrender.com/giai-thich", {
@@ -366,15 +367,13 @@ useEffect(() => {
 
     const data = await res.json();
 
-    setAiText((prev) => ({
-      ...prev,
-      [keyId]: data.text,
-    }));
+    setAiExplainMap(prev => ({ ...prev, [keyId]: data.text }));
+
   } catch (err) {
     alert("Lỗi gọi AI");
   }
 
-  setLoadingAI(false);
+  setAiLoadingMap(prev => ({ ...prev, [keyId]: false }));
 };
 
 
@@ -558,14 +557,14 @@ useEffect(() => {
                                 🤖 AI giải thích
                               </button>
 
-                              {loadingAI && <p>AI đang suy nghĩ...</p>}
+                              {aiLoadingMap[key] && <p>🤖 AI đang suy nghĩ...</p>}
 
-                              {aiText[key] && (
+                              {aiExplainMap[key] && (
                                 <div className="ai-explain">
                                   <b>🤖 Trợ giảng:</b>
 
                                   <div className="ai-content">
-                                    {aiText[key].split("\n").map((line, i) => (
+                                    {aiExplainMap[key].split("\n").map((line, i) => (
                                       <p key={i}>{line}</p>
                                     ))}
                                   </div>
@@ -579,7 +578,9 @@ useEffect(() => {
                     })
                   ) : (
                     <div>
-                      {Object.entries(q.options).map(([key, val]) => (
+                      {Object.entries(q.options)
+                        .sort(([a], [b]) => a.localeCompare(b))
+                        .map(([key, val]) => (
                         <label
                           key={key}
                           style={{
@@ -629,14 +630,14 @@ useEffect(() => {
                             🤖 AI giải thích
                           </button>
 
-                          {loadingAI && <p>AI đang suy nghĩ...</p>}
+                          {aiLoadingMap[idx] && <p>🤖 AI đang suy nghĩ...</p>}
 
-                          {aiText[idx] && (
+                          {aiExplainMap[idx] && (
                             <div className="ai-box">
                               <b>🤖 Trợ giảng:</b>
 
                               <div className="ai-content">
-                                {(aiText[idx] || "")
+                                {(aiExplainMap[idx] || "")
                                   .split("\n")
                                   .filter(line => line.trim() !== "")
                                   .map((line, i) => (

@@ -18,21 +18,23 @@ const tronCauHoiDung = (cau) => {
   // ===== DẠNG TRẮC NGHIỆM =====
   if (!cau.options || !cau.answer) return cau;
 
-  const entries = Object.entries(cau.options);
-  const dapAnCu = cau.answer;
-  const noiDungDung = cau.options[dapAnCu];
+  // chuyển object -> array
+  const entries = Object.entries(cau.options).map(([key, value]) => ({
+    oldKey: key,
+    value,
+  }));
 
-  const tron = entries
-    .map(([k, v]) => ({ k, v, r: Math.random() }))
-    .sort((a, b) => a.r - b.r);
+  // trộn
+  const shuffled = tronNgauNhien(entries);
 
   const newOptions = {};
   let newAnswer = null;
 
-  tron.forEach((item, i) => {
-    const label = String.fromCharCode(65 + i); // A B C D
-    newOptions[label] = item.v;
-    if (item.v === noiDungDung) {
+  shuffled.forEach((item, index) => {
+    const label = String.fromCharCode(65 + index); // A B C D
+    newOptions[label] = item.value;
+
+    if (item.oldKey === cau.answer) {
       newAnswer = label;
     }
   });
@@ -40,9 +42,10 @@ const tronCauHoiDung = (cau) => {
   return {
     ...cau,
     options: newOptions,
-    answer: newAnswer
+    answer: newAnswer,
   };
 };
+
 
 function TaoDeOnTap({ data }) {
   const navigate = useNavigate();
