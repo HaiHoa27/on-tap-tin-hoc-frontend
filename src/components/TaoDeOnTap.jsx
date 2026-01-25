@@ -156,7 +156,7 @@ function TaoDeOnTap({ data }) {
 
   return (
     <div style={{ padding: 20 }}>
-      <h2>📝 Tạo đề ôn tập (GV)</h2>
+      <h2>📝 Tạo đề ôn tập</h2>
 
       <label>
         ⏱️ Thời gian làm bài (phút):
