@@ -349,8 +349,7 @@ function App() {
       <footer className="site-footer">
         <p>
           <strong>
-            <em>✅ Người thực hiện: Phùng Thị Thanh Huyền</em>          
-            <em>   ✅ GV hướng dẫn: Trần Hoàng Hải Hòa – Trường THPT số 1 Lê Lợi</em>
+            <em>✅ Người thực hiện: Trần Hoàng Hải Hòa – Trường THPT số 1 Lê Lợi</em>
           </strong>{" "}
         </p>
       </footer>
