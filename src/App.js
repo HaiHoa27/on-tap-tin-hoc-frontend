@@ -349,7 +349,7 @@ function App() {
       <footer className="site-footer">
         <p>
           <strong>
-            <em>✅ Người thực hiện: Trần Hoàng Hải Hòa – Trường THPT số 1 Lê Lợi</em>
+            <em>✅ Trường THPT số 1 Lê Lợi - Địa chỉ: 87 Lê Lợi, Nam Đông Hà, Quảng Trị</em>
           </strong>{" "}
         </p>
       </footer>
